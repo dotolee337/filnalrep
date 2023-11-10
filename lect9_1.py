@@ -169,7 +169,7 @@ end = time.time()
 print("multi end",end - start)
 """
 #멀티프로세싱
-"""
+
 import time
 import multiprocessing
 
@@ -177,22 +177,24 @@ def counter(str_name):
     for i in range(50000):
         print(f"Countdown {i}, name : {str_name}\n")
 
-process1 = multiprocessing.Process(target=counter, args=("1num",))
-process2 = multiprocessing.Process(target=counter, args=("2num",))
-process3 = multiprocessing.Process(target=counter, args=("3num",))
+if __name__ == "__main__":
+    process1 = multiprocessing.Process(target=counter, args=("1num",))
+    process2 = multiprocessing.Process(target=counter, args=("2num",))
+    process3 = multiprocessing.Process(target=counter, args=("3num",))
 
-start = time.time()
-process1.start()
-process2.start()
-process3.start()
+    start = time.time()
 
-process1.join()
-process2.join()
-process3.join()
-end = time.time()
+    process1.start()
+    process2.start()
+    process3.start()
 
-print("proc-end",end - start)
-"""
+    process1.join()
+    process2.join()
+    process3.join()
+    end = time.time()
+
+    print("proc-end",end - start)
+
 #main 실행
 
 def main() :
