@@ -1,5 +1,5 @@
 import pandas as pd
-
+"""
 tr = pd.read_csv("./data/train.csv")
 #print(tr)
 print("\n ================== \n")
@@ -84,3 +84,256 @@ tr.AgeCate = tr.AgeCate.astype(int)
 tr.Cabin.fillna("N",inplace = True)
 tr["CabinCate"] = tr["Cabin"].str.slice(start=0, stop=1)
 tr["CabinCate"].value_counts()
+
+#객실
+tr["CabinCate"] = tr["CabinCate"].map({ "N": 0, "C": 1, "B": 2, "D": 3, "E": 4, "A": 5, "F": 6, "G": 7, "T": 8 })
+#tr.CabinCate = tr.CabinCate.astype
+#print(tr.dtypes)
+#print(tr)
+#print(tr["CabinCate"].value_counts())
+
+res = pd.crosstab(tr["CabinCate"], tr["Survived"])
+print(res)
+
+#요금 
+#print(tr.Fare)
+#print("\n ================== \n")
+
+#print(tr["Fare"].value_counts())
+
+tr["FareCate"] = pd.qcut(tr.Fare, 8, labels=range(1, 9))
+#tr.FareCate = tr.FareCate.astype(int)
+#tr.FareCate = tr.FareCare.astype(int)
+print(tr["FareCate"].value_counts())
+
+res = pd.crosstab(tr["FareCate"], tr["Survived"])
+print(res)
+
+#아이리스 전처리
+
+import pandas as pd
+
+df = pd.read_csv("./data/Iris.csv", index_col="Id")
+print(df.head())
+
+df.rename(columns={
+    "SepalLengthCm": "꽃받침길이",
+    "SepalWidthCm": "꽃받침너비",
+    "PetalLengthCm": "꽃잎길이",
+    "PetalWidthCm": "꽃잎너비", 
+    "Species": "품종"},
+    inplace=True
+)
+
+ir = df.rename(columns={
+    "SepalLengthCm": "꽃받침길이",
+    "SepalWidthCm": "꽃받침너비",
+    "PetalLengthCm": "꽃잎길이",
+    "PetalWidthCm": "꽃잎너비", 
+    "Species": "품종"},
+)
+
+#print(ir.head())
+#print("\n ================== \n")
+
+#res = ir.iloc[:, [0, 1, 4]]
+#
+
+ir["품종"] = ir["품종"].str[5:]
+print(ir)
+
+res = ir.groupby("품종").mean()
+print(res)
+
+res = ir["품종"].value_counts()
+print(res)
+"""
+#데이터 시각화
+
+import matplotlib.pyplot as plt
+
+#y축 데이터 지정 구성
+"""
+#value = [1, 2, 3, 4]
+value = [2, 4, 5, 7, 10]
+res = plt.plot(value)
+plt.show()
+"""
+#x, y축 두 축 지정 구성
+"""
+#x_value = [2, 3, 6, 7, 10 ]
+#y_value = [1, 4, 5, 8, 9]
+
+#plt.plot(x_value, y_value)
+res = plt.plot([2, 4, 6, 8, 10],[1, 3, 5, 7, 9])
+plt.show()
+"""
+#딕셔너리 설정
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+
+plt.plot("x_data", "y_data", data=dic_val)
+plt.show()
+"""
+#레이블 설정
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+
+plt.plot("x_data", "y_data", data=dic_val)
+plt.xlabel("x_data")
+plt.ylabel("y_data")
+plt.show()
+"""
+#레이블 여백 조절
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+plt.plot("x_data", "y_data", data=dic_val)
+#plt.xlabel("x_data", labelpad=15)
+#plt.ylabel("y_data", labelpad=50)
+#plt.show()
+
+#레이블 위치 조절
+
+#plt.xlabel("x_data", labelpad=10, loc="right")
+#plt.ylabel("y_data", labelpad=10, loc="top")
+
+plt.xlabel("x_data", labelpad=10, loc="left")
+plt.ylabel("y_data", labelpad=10, loc="bottom")
+
+plt.show()
+"""
+#다중데이터 출력
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+dic1_val = {"x1_data": [1,3,5,7,9], "y1_data": [2,4,6,8,10]}
+
+plt.plot("x_data", "y_data", data=dic_val)
+plt.plot("x1_data", "y1_data", data=dic1_val)
+plt.show()
+
+#라벨 출력
+
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+plt.plot("x_data", "y_data", data=dic_val, label="PData(km)")
+
+plt.legend()
+plt.show()
+"""
+#위치 조절
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+
+plt.plot("x_data", "y_data", data=dic_val, label="PData(km)")
+plt.xlabel("x_data")
+plt.ylabel("y_data")
+
+#plt.legend(loc=(0.5,0.5))
+#plt.legend(loc=(0.3,0.3))
+plt.legend(loc = "best")
+
+#plt.legend(loc="lower right")
+#plt.legend(loc="center right")
+#plt.legend(loc="upper right")
+#plt.legend(loc="upper left")
+#plt.legend(loc="upper center")
+
+plt.show()
+"""
+#라벨 설정
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+dic1_val = {"x1_data": [1,3,5,7,9], "y1_data": [2,4,6,8,10]}
+
+plt.plot("x_data", "y_data", data=dic_val)
+plt.plot("x1_data", "y1_data", data=dic1_val)
+#plt.plot =([1,4,5,9],[2,3.8.10])
+plt.xlabel("x_data")
+plt.ylabel("y_data")
+
+#col 조절
+plt.legend(ncol=1)
+#(ncol=1) - 한줄로 모든 라벨을 표시
+#(ncol=2) - 두줄로 라벨을 표시
+
+#폰트 조절
+#plt.legend(ncol=2, fontsize=10)
+
+#테두리 설정
+#plt.legend(ncol=2, fontsize=10, shadow=True)
+#plt.legend(ncol=2, fontsize=10, shadow=False)
+
+#테두리 음영 설정
+#plt.legend(ncol=2, fontsize=10, frameon = True, shadow=True)
+#plt.legend(ncol=2, fontsize=10, shadow=True)
+
+#축 범위 지정
+"""
+dic_val = {"x_data": [2,3,6,7,10], "y_data": [1,4,5,8,9]}
+
+plt.plot("x_data", "y_data", data=dic_val)
+plt.xlabel("x_data")
+plt.ylabel("y_data")
+
+plt.xlim()
+plt.ylim()
+
+plt.show()
+"""
+
+#현재 축 범위 출력
+"""
+x_min, x_max = plt.xlim()
+y_min, y_max = plt.ylim()
+print(x_min,x_max)
+print(y_min,y_max)
+
+#축 계산
+
+plt.xlim(x_min - 0.6, x_max)
+plt.ylim(y_min - 0.6, y_max)
+
+#plt.show()
+
+#축 범위 지정
+
+plt.xlim([0, 10])
+plt.ylim([0, 10])
+
+plt.xlim([0, 50])
+plt.ylim([0, 50])
+
+plt.xlim([-5, 50])
+plt.ylim([5, 10])
+"""
+#두축 값 동시 확인
+"""
+x_min, x_max, ymin, ymax = plt.axis()
+print(x_min, x_max, ymin, ymax)
+plt.axis([-5,10,-5,10])
+plt.show()
+"""
+#축 출력 옵션 지정
+"""
+plt.axis("square")
+# plt.axis("scaled")
+# plt.axis("equal")
+# plt.axis("tight")
+# plt.axis("auto")
+# plt.axis("off")
+plt.show()
+"""
+#선 스타일 설정
+
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], "-", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], "--", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], ":", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], "-.", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], ".", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], ".-", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], ".--", label="PData(km)")
+
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], linestyle="solid", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], linestyle="daashed", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], linestyle="dotted", label="PData(km)")
+#plt.plot([2,3,6,7,10], [1,4,5,8,9], linestyle="dashdot", label="PData(km)")
+
+#plt.show()
