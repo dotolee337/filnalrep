@@ -219,6 +219,7 @@ clr = ["r", "g", "b"]
 plt.barh(x_years, y_data)
 
 #그래프 설정
-
+#   {x축 데이터}{y축 데이터}{색설정} {위치설정} {테두리색설정} {선두께} {그래프 두께}
+plt.barh(x_years, y_data, color=clr, align="center", edgecolor="black", linewidth=3, height=0.3)
 
 plt.show()
